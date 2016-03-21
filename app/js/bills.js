@@ -1,26 +1,20 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute'])
+angular.module('myApp.bills', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {
-    templateUrl: 'view1/view1.html',
-    controller: 'View1Ctrl'
+  $routeProvider.when('/Bills', {
+    templateUrl: 'view/bills.html',
+    controller: 'billsCtrl'
   });
 }])
 
-.controller('View1Ctrl', ['$scope', '$http', function($scope, $http) {
+.controller('billsCtrl', ['$scope', function($scope) {
 
     if ( localStorage.billsLocal === undefined ) {
-        $http.get('data/bills.json').success(function (data) {
-            var billsLocal = "";
-            localStorage.setItem('billsLocal' ,angular.toJson(data));
-            $scope.bills = JSON.parse(localStorage.billsLocal);
-            console.log(localStorage.billsLocal);
-        });
+        localStorage.setItem('billsLocal', '[]');
+        $scope.bills = JSON.parse(localStorage.billsLocal)
     } else $scope.bills = JSON.parse(localStorage.billsLocal);
-
-
 
     $scope.add = function(name,balance){
         var item = {
@@ -39,7 +33,5 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.bills = [];
         localStorage.billsLocal = angular.toJson($scope.bills);
     };
-
-
 
 }]);
