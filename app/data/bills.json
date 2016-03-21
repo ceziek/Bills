@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Bill1",
+    "balance": 100
+  },
+  {
+    "name": "Bill2",
+    "balance": 200
+  }
+]

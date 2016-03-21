@@ -1,0 +1,13 @@
+
+<input type="text" ng-model="name" placeholder="Name"><br>
+<input type="text" ng-model="balance" placeholder="Balance">
+<button ng-click="add(name,balance)">+</button>
+<button ng-click="print()">P</button>
+<button ng-click="reset()">R</button><br>
+
+<ul>
+    <li ng-repeat="bill in bills">
+        <a href="#">{{bill.name}} : {{bill.balance}}</a>
+    </li>
+    <div ng-show="!bills.length">No Bills</div>
+</ul>
