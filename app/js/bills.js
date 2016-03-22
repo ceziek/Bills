@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.bills', ['ngRoute'])
+angular.module('myApp.bills', ['ngRoute', 'services'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/Bills', {
@@ -9,29 +9,32 @@ angular.module('myApp.bills', ['ngRoute'])
   });
 }])
 
-.controller('billsCtrl', ['$scope', function($scope) {
+.controller('billsCtrl', ['$scope', 'StorageService', function($scope, StorageService) {
 
-    if ( localStorage.billsLocal === undefined ) {
-        localStorage.setItem('billsLocal', '[]');
-        $scope.bills = JSON.parse(localStorage.billsLocal)
-    } else $scope.bills = JSON.parse(localStorage.billsLocal);
+    var refresh = function(){
+        $scope.bills = StorageService.get();
+    };
+
+    $scope.StorageService = StorageService;
+    refresh();
+
 
     $scope.add = function(name,balance){
-        var item = {
+        $scope.StorageService.add({
             name: name,
-            balance: balance
-        };
-        $scope.bills.push(item);
-        localStorage.billsLocal = angular.toJson($scope.bills);
+            balance: balance,
+            elements: []
+        });
+        refresh();
     };
 
     $scope.print = function() {
-        console.log(angular.toJson($scope.bills));
+        $scope.StorageService.print();
     };
 
     $scope.reset = function() {
-        $scope.bills = [];
-        localStorage.billsLocal = angular.toJson($scope.bills);
+        $scope.StorageService.reset();
+        refresh();
     };
 
 }]);

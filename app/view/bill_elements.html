@@ -1,5 +1,16 @@
-<p>This is the partial for Bill Elements.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<a href="#/Bills">Back</a>
+<h1>{{bill.name}}</h1>
+<p>{{bill.balance}}</p><br>
+
+<input type="text" ng-model="name"><br>
+<input type="text" ng-model="balance"><br>
+<button ng-click="add(name,balance)">+</button>
+
+<ul>
+    <li ng-repeat="element in bill.elements">
+        <h4>{{element.name}}</h4>
+        <p>{{element.balance}}</p><br>
+    </li>
+</ul>
+
+

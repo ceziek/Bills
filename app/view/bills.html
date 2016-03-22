@@ -7,7 +7,6 @@
 
 <ul>
     <li ng-repeat="bill in bills">
-        <a href="#">{{bill.name}} : {{bill.balance}}</a>
+        <a href="#/{{bill}}" >{{bill.name}} : {{bill.balance}}</a>
     </li>
 </ul>
-<div ng-show="!bills.length">No Bills</div>
