@@ -11,18 +11,32 @@ angular.module('myApp.bills', ['ngRoute'])
 
 .controller('billsCtrl', ['$scope', function($scope) {
 
+    // Kontroller nie sluzy do zarzadzania danymi, od tego sa serwisy.
+
     if ( localStorage.billsLocal === undefined ) {
+        // BEZSENS
         localStorage.setItem('billsLocal', '[]');
-        $scope.bills = JSON.parse(localStorage.billsLocal)
+        // ustawiasz billsLocal na pusta tablice w localStorage
+        $scope.bills = JSON.parse(localStorage.billsLocal)    // <- tu brakuje srednika
+        // i zaraz potem czytasz to localStorage i je parsujesz BEEEEEEEZSENS
     } else $scope.bills = JSON.parse(localStorage.billsLocal);
 
-    $scope.add = function(name,balance){
+    // Brak { }
+
+    $scope.add = function(name,balance){ // spacja po przecinku, spacja po )
         var item = {
             name: name,
             balance: balance
         };
+        // zmienna zupelnie nie potrzebna, mogles inlinowo wpisac ten obiekt
+        // $scope.bills.push({
+        //      name: name,
+        //      balance: balance
+        //    });
+        
         $scope.bills.push(item);
-        localStorage.billsLocal = angular.toJson($scope.bills);
+
+        localStorage.billsLocal = angular.toJson($scope.bills); // duplikacja, powinienes wyrzucic to do wspolnej funkcji prywatnej
     };
 
     $scope.print = function() {
@@ -31,7 +45,7 @@ angular.module('myApp.bills', ['ngRoute'])
 
     $scope.reset = function() {
         $scope.bills = [];
-        localStorage.billsLocal = angular.toJson($scope.bills);
+        localStorage.billsLocal = angular.toJson($scope.bills); // duplikacja
     };
 
 }]);
