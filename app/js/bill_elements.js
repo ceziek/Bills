@@ -17,7 +17,9 @@ angular.module('myApp.billElem', ['ngRoute', 'services'])
     $scope.index = StorageService.getIndex($routeParams.bill);
 
     $scope.add = function(name, balance) {
-        $scope.bills.addElem($scope.index,{
+        console.info (arguments);
+
+        $scope.bills.addElem($scope.index, {
             name: name,
             balance: balance
         });
