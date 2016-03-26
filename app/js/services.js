@@ -10,13 +10,13 @@ angular.module('services', ['ngStorage'])
         });
     }
 
-    var _get = function() {
+    this.get = function() {
         return $localStorage.bills;
     };
 
-    var _getItem = function(object) {
+    this.getItem = function(id) {
         for( var i=0; i<$localStorage.bills.length; i++) {
-            if (angular.toJson($localStorage.bills[i]) == object){
+            if ($localStorage.bills[i].id == id){
 
                 return $localStorage.bills[i];
             }
@@ -24,9 +24,9 @@ angular.module('services', ['ngStorage'])
         return console.log("Object not found in Storage");
     };
 
-    var _getIndex = function(object) {
+    this.getIndex = function(id) {
         for( var i=0; i<$localStorage.bills.length; i++) {
-            if (angular.toJson($localStorage.bills[i]) == object){
+            if ($localStorage.bills[i].id == id){
 
                 return i;
             }
@@ -34,30 +34,20 @@ angular.module('services', ['ngStorage'])
         return console.log("Index not found in Storage");
     };
 
-    var _add = function(item) {
+    this.add = function(item) {
         $localStorage.bills.push(item);
     };
 
-    var _addElem = function(index, elem) {
+    this.addElem = function(index, elem) {
         $localStorage.bills[index].elements.push(elem);
     };
 
-    var _print = function() {
+    this.print = function() {
         console.log(angular.toJson($localStorage.bills));
     };
 
-    var _reset = function() {
-        $localStorage.bills = [];
+    this.reset = function() {
+        $localStorage.bills.splice(0,$localStorage.bills.length);
     };
-
-    return {
-        get: _get,
-        getItem: _getItem,
-        getIndex: _getIndex,
-        add: _add,
-        addElem: _addElem,
-        print: _print,
-        reset: _reset
-    }
 
 }]);

@@ -11,30 +11,25 @@ angular.module('myApp.bills', ['ngRoute', 'services'])
 
 .controller('billsCtrl', ['$scope', 'StorageService', function($scope, StorageService) {
 
-    var refresh = function(){
-        $scope.bills = StorageService.get();
-    };
-
-    $scope.StorageService = StorageService;
-    refresh();
-
+    $scope.bills = StorageService.get();
 
     $scope.add = function(name,balance){
-        $scope.StorageService.add({
+        var id = Math.round(new Date()/1000);
+        StorageService.add({
+            id: id,
             name: name,
             balance: balance,
             elements: []
         });
-        refresh();
+
     };
 
     $scope.print = function() {
-        $scope.StorageService.print();
+        StorageService.print();
     };
 
     $scope.reset = function() {
-        $scope.StorageService.reset();
-        refresh();
+        StorageService.reset();
     };
 
 }]);

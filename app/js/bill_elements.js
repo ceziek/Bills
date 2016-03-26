@@ -4,7 +4,7 @@ angular.module('myApp.billElem', ['ngRoute', 'services'])
 
 .config(['$routeProvider', function($routeProvider) {
     $routeProvider.
-        when('/:bill', {
+        when('/:billId', {
             templateUrl: 'view/bill_elements.html',
             controller: 'billElemCtrl'
         });
@@ -12,12 +12,12 @@ angular.module('myApp.billElem', ['ngRoute', 'services'])
 
 .controller('billElemCtrl', ['$scope', 'StorageService', '$routeParams', function($scope, StorageService, $routeParams) {
 
-    $scope.bills = StorageService;
-    $scope.bill = StorageService.getItem($routeParams.bill);
-    $scope.index = StorageService.getIndex($routeParams.bill);
+    $scope.bill = StorageService.getItem($routeParams.billId);
+
+    var index = StorageService.getIndex($routeParams.billId);
 
     $scope.add = function(name, balance) {
-        $scope.bills.addElem($scope.index,{
+        StorageService.addElem(index,{
             name: name,
             balance: balance
         });
