@@ -7,10 +7,9 @@
 <button ng-click="add(name,balance)">+</button>
 
 <ul>
-    <li ng-repeat="element in bill.elements">
-        <h4>{{element.name}}</h4>
-        <p>{{element.balance}}</p><br>
+    <li ng-repeat="item in bill.items">
+        <p>{{item.name}} : -{{item.balance}}</p>
+        <button ng-click="delete(item)">R</button>
+        <br>
     </li>
 </ul>
-
-
